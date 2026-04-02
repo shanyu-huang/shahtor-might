@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code 標籤產生器</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    header {
+      background: #1a73e8;
+      color: #fff;
+      padding: 16px 24px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      gap: 32px;
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .form-panel {
+      flex: 0 0 380px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .form-panel h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #1a73e8;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.2s;
+      font-family: 'Courier New', monospace;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: #1a73e8;
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #1557b0; }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #666;
+      border: 1.5px solid #ddd;
+    }
+
+    .btn-secondary:hover { background: #e8e8e8; }
+
+    .preview-panel {
+      flex: 1;
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .preview-panel h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #1a73e8;
+      align-self: flex-start;
+    }
+
+    .preview-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+    }
+
+    .label-preview {
+      border: 2px solid #000;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      gap: 14px;
+      background: #fff;
+    }
+
+    .label-preview .qr-area {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .label-preview .qr-area img {
+      width: 100px;
+      height: 100px;
+      image-rendering: pixelated;
+    }
+
+    .label-preview .text-area {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: nowrap;
+    }
+
+    .label-preview .text-area .field-line {
+      color: #000;
+    }
+
+    .preview-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .modal h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .modal p {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .modal .btn-group {
+      justify-content: center;
+    }
+
+    .modal .btn { flex: 0 1 140px; }
+
+    .btn-danger {
+      background: #e53935;
+      color: #fff;
+    }
+
+    .btn-danger:hover { background: #c62828; }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        margin: 16px auto;
+      }
+      .form-panel { flex: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>QR Code 標籤產生器</header>
+
+  <div class="container">
+    <!-- Left: Form -->
+    <div class="form-panel">
+      <h2>填寫標籤資料</h2>
+      <div class="form-group">
+        <label for="pn">客戶P/N</label>
+        <input type="text" id="pn" placeholder="例: 1-82-00025-00024H">
+      </div>
+      <div class="form-group">
+        <label for="order">客戶訂單</label>
+        <input type="text" id="order" placeholder="例: 330-20200050175">
+      </div>
+      <div class="form-group">
+        <label for="dateCode">Date Code</label>
+        <input type="text" id="dateCode" placeholder="例: 20200610">
+      </div>
+      <div class="form-group">
+        <label for="lotCode">Lot Code</label>
+        <input type="text" id="lotCode" placeholder="例: ASC11-200500320">
+      </div>
+      <div class="form-group">
+        <label for="qty">QTY</label>
+        <input type="text" id="qty" placeholder="例: 3000">
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="generatePDF()">產出並下載</button>
+        <button class="btn btn-secondary" onclick="showClearModal()">清除資料</button>
+      </div>
+    </div>
+
+    <!-- Right: Preview -->
+    <div class="preview-panel">
+      <h2>標籤預覽</h2>
+      <div class="preview-area">
+        <div class="label-preview" id="labelPreview">
+          <div class="qr-area">
+            <img id="qrPreview" src="" alt="QR Code">
+          </div>
+          <div class="text-area" id="textPreview">
+            <div class="field-line">客戶P/N: </div>
+            <div class="field-line">客戶訂單: </div>
+            <div class="field-line">Date Code: </div>
+            <div class="field-line">Lot Code: </div>
+            <div class="field-line">QTY: </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-note">* 列印 PDF 時請選擇「實際大小」(100%)，以確保 QR code 尺寸為 2cm x 2cm</div>
+    </div>
+  </div>
+
+  <!-- Clear Confirmation Modal -->
+  <div class="modal-overlay" id="clearModal">
+    <div class="modal">
+      <h3>確認清除</h3>
+      <p>確定要清除所有已填寫的資料嗎？此操作無法復原。</p>
+      <div class="btn-group">
+        <button class="btn btn-danger" onclick="confirmClear()">確定清除</button>
+        <button class="btn btn-secondary" onclick="closeClearModal()">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- DOM references ---
+    const fields = ['pn', 'order', 'dateCode', 'lotCode', 'qty'];
+    const inputs = {};
+    fields.forEach(f => {
+      inputs[f] = document.getElementById(f);
+      inputs[f].addEventListener('input', updatePreview);
+    });
+
+    // --- Preview update ---
+    function getFieldValues() {
+      return {
+        pn: inputs.pn.value,
+        order: inputs.order.value,
+        dateCode: inputs.dateCode.value,
+        lotCode: inputs.lotCode.value,
+        qty: inputs.qty.value
+      };
+    }
+
+    function buildQRContent(vals) {
+      return [
+        '客戶P/N: ' + vals.pn,
+        '客戶訂單: ' + vals.order,
+        'Date Code: ' + vals.dateCode,
+        'Lot Code: ' + vals.lotCode,
+        'QTY: ' + vals.qty
+      ].join('\n');
+    }
+
+    function updatePreview() {
+      const vals = getFieldValues();
+
+      // Update text
+      const lines = [
+        '客戶P/N: ' + vals.pn,
+        '客戶訂單: ' + vals.order,
+        'Date Code: ' + vals.dateCode,
+        'Lot Code: ' + vals.lotCode,
+        'QTY: ' + vals.qty
+      ];
+      document.getElementById('textPreview').innerHTML =
+        lines.map(l => '<div class="field-line">' + escapeHtml(l) + '</div>').join('');
+
+      // Update QR code
+      const content = buildQRContent(vals);
+      try {
+        var qr = qrcode(0, 'M');
+        qr.addData(content);
+        qr.make();
+        document.getElementById('qrPreview').src = qr.createDataURL(4, 0);
+      } catch (e) {
+        // QR generation may fail if content is empty or too long
+      }
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // --- PDF generation using Canvas-to-Image ---
+    function generatePDF() {
+      const vals = getFieldValues();
+      const content = buildQRContent(vals);
+
+      // Constants
+      const DPI = 300;
+      const mmToPx = (mm) => Math.round((mm / 25.4) * DPI);
+
+      const LABEL_W_MM = 82;
+      const LABEL_H_MM = 30;
+      const QR_SIZE_MM = 20;
+      const PADDING_MM = 3;
+      const TEXT_X_MM = QR_SIZE_MM + PADDING_MM * 2 + 1;
+
+      const canvasW = mmToPx(LABEL_W_MM);
+      const canvasH = mmToPx(LABEL_H_MM);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = canvasW;
+      canvas.height = canvasH;
+      const ctx = canvas.getContext('2d');
+
+      // White background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvasW, canvasH);
+
+      // Border
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(1, 1, canvasW - 2, canvasH - 2);
+
+      // Generate QR code at high resolution
+      var qr = qrcode(0, 'M');
+      qr.addData(content);
+      qr.make();
+
+      var qrImg = new Image();
+      qrImg.onload = function () {
+        // Draw QR code
+        var qrPx = mmToPx(QR_SIZE_MM);
+        var qrX = mmToPx(PADDING_MM);
+        var qrY = Math.round((canvasH - qrPx) / 2);
+        ctx.drawImage(qrImg, qrX, qrY, qrPx, qrPx);
+
+        // Draw text lines
+        var fontSize = mmToPx(2.8);
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold ' + fontSize + 'px "Courier New", monospace';
+
+        var textX = mmToPx(TEXT_X_MM);
+        var lineHeight = mmToPx(4.5);
+        var textY = mmToPx(5.5);
+
+        var textLines = [
+          '客戶P/N: ' + vals.pn,
+          '客戶訂單: ' + vals.order,
+          'Date Code: ' + vals.dateCode,
+          'Lot Code: ' + vals.lotCode,
+          'QTY: ' + vals.qty
+        ];
+
+        textLines.forEach(function (line) {
+          ctx.fillText(line, textX, textY);
+          textY += lineHeight;
+        });
+
+        // Generate PDF
+        var { jsPDF } = window.jspdf;
+        var doc = new jsPDF('p', 'mm', 'a4');
+        var imgData = canvas.toDataURL('image/png');
+
+        // Place label at top-left with margin
+        doc.addImage(imgData, 'PNG', 10, 10, LABEL_W_MM, LABEL_H_MM);
+        doc.save('label.pdf');
+      };
+
+      qrImg.src = qr.createDataURL(10, 0);
+    }
+
+    // --- Clear form with modal ---
+    function showClearModal() {
+      document.getElementById('clearModal').classList.add('active');
+    }
+
+    function closeClearModal() {
+      document.getElementById('clearModal').classList.remove('active');
+    }
+
+    function confirmClear() {
+      fields.forEach(f => inputs[f].value = '');
+      closeClearModal();
+      updatePreview();
+    }
+
+    // Close modal on overlay click
+    document.getElementById('clearModal').addEventListener('click', function (e) {
+      if (e.target === this) closeClearModal();
+    });
+
+    // Initial preview
+    updatePreview();
+  </script>
+</body>
+</html>
