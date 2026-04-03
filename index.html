@@ -19,11 +19,51 @@
     header {
       background: #1a73e8;
       color: #fff;
-      padding: 16px 24px;
+      padding: 12px 24px;
       font-size: 20px;
       font-weight: bold;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
+
+    .header-title { white-space: nowrap; }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .header-actions .btn-header {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .header-actions .btn-header:active { transform: scale(0.97); }
+
+    .btn-download {
+      background: #fff;
+      color: #1a73e8;
+    }
+
+    .btn-download:hover { background: #e8f0fe; }
+
+    .btn-reset {
+      background: #e53935;
+      color: #fff;
+    }
+
+    .btn-reset:hover { background: #c62828; }
 
     .container {
       display: flex;
@@ -35,38 +75,75 @@
 
     .form-panel {
       flex: 0 0 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Each label entry card */
+    .label-entry {
       background: #fff;
       border-radius: 12px;
-      padding: 28px;
+      padding: 20px 24px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .form-panel h2 {
-      font-size: 18px;
-      margin-bottom: 20px;
+    .label-entry-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .label-entry-header h3 {
+      font-size: 16px;
       color: #1a73e8;
     }
 
+    .label-count-inline {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .label-count-inline select {
+      width: auto;
+      padding: 5px 8px;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      background: #fff;
+    }
+
+    .label-count-inline select:focus {
+      outline: none;
+      border-color: #1a73e8;
+    }
+
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .form-group label {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #555;
     }
 
     .form-group input {
       width: 100%;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border: 1.5px solid #ddd;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 14px;
       transition: border-color 0.2s;
       font-family: 'Courier New', monospace;
+      background: #fff;
     }
 
     .form-group input:focus {
@@ -75,40 +152,72 @@
       box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
     }
 
-    .btn-group {
+    .entry-actions {
       display: flex;
-      gap: 12px;
-      margin-top: 24px;
+      gap: 10px;
+      margin-top: 16px;
+      justify-content: center;
     }
 
-    .btn {
-      flex: 1;
-      padding: 12px 16px;
-      border: none;
-      border-radius: 8px;
+    .btn-entry-action {
+      padding: 8px 18px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    .btn-clear-entry {
+      border: 1.5px solid #e53935;
+      background: #fbe9e7;
+      color: #e53935;
+    }
+
+    .btn-clear-entry:hover { background: #ffcdd2; }
+
+    .btn-delete-entry {
+      border: 1.5px solid #999;
+      background: #f5f5f5;
+      color: #666;
+    }
+
+    .btn-delete-entry:hover { background: #e0e0e0; }
+
+    .btn-delete-entry:disabled {
+      opacity: 0.4;
+      cursor: default;
+      background: #f5f5f5;
+    }
+
+    /* Add label button */
+    .btn-add-entry {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 14px;
+      border: 2px dashed #bbb;
+      border-radius: 12px;
+      background: transparent;
+      color: #666;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: border-color 0.2s, color 0.2s;
     }
 
-    .btn:active { transform: scale(0.97); }
-
-    .btn-primary {
-      background: #1a73e8;
-      color: #fff;
+    .btn-add-entry:hover {
+      border-color: #1a73e8;
+      color: #1a73e8;
     }
 
-    .btn-primary:hover { background: #1557b0; }
-
-    .btn-secondary {
-      background: #f5f5f5;
-      color: #666;
-      border: 1.5px solid #ddd;
-    }
-
-    .btn-secondary:hover { background: #e8e8e8; }
-
+    /* Preview panel */
     .preview-panel {
       flex: 1;
       background: #fff;
@@ -118,6 +227,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: sticky;
+      top: 64px;
+      align-self: flex-start;
     }
 
     .preview-panel h2 {
@@ -129,46 +241,77 @@
 
     .preview-area {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       flex: 1;
       width: 100%;
+      gap: 12px;
     }
 
-    .label-preview {
-      border: 2px solid #000;
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 14px;
-      gap: 14px;
+    .a4-page {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 210 / 297;
       background: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
     }
 
-    .label-preview .qr-area {
-      width: 100px;
-      height: 100px;
+    .a4-label {
+      position: absolute;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      padding: 1.2% 1.6%;
+      gap: 1.5%;
+      background: #fff;
+      box-sizing: border-box;
+    }
+
+    .a4-label .qr-area {
+      height: 70%;
+      aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
 
-    .label-preview .qr-area img {
-      width: 100px;
-      height: 100px;
+    .a4-label .qr-area img {
+      width: 100%;
+      height: 100%;
       image-rendering: pixelated;
     }
 
-    .label-preview .text-area {
+    .a4-label .text-area {
       font-family: 'Courier New', monospace;
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 5.5px;
+      line-height: 1.6;
       white-space: nowrap;
-    }
-
-    .label-preview .text-area .field-line {
       color: #000;
     }
+
+    .page-indicator {
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-indicator button {
+      background: #e8e8e8;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .page-indicator button:hover { background: #ddd; }
+    .page-indicator button:disabled { opacity: 0.4; cursor: default; }
 
     .preview-note {
       margin-top: 16px;
@@ -211,10 +354,20 @@
     }
 
     .modal .btn-group {
+      display: flex;
+      gap: 12px;
       justify-content: center;
     }
 
-    .modal .btn { flex: 0 1 140px; }
+    .modal .btn {
+      flex: 0 1 140px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
     .btn-danger {
       background: #e53935;
@@ -223,99 +376,239 @@
 
     .btn-danger:hover { background: #c62828; }
 
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #666;
+      border: 1.5px solid #ddd;
+    }
+
+    .btn-secondary:hover { background: #e8e8e8; }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
         margin: 16px auto;
       }
       .form-panel { flex: none; }
+      .preview-panel { position: static; }
     }
   </style>
 </head>
 <body>
-  <header>QR Code 標籤產生器</header>
+  <header>
+    <span class="header-title">QR Code 標籤產生器</span>
+    <div class="header-actions">
+      <button class="btn-header btn-download" onclick="generatePDF()">產出並下載</button>
+      <button class="btn-header btn-reset" onclick="showResetModal()">重置</button>
+    </div>
+  </header>
 
   <div class="container">
     <!-- Left: Form -->
-    <div class="form-panel">
-      <h2>填寫標籤資料</h2>
-      <div class="form-group">
-        <label for="pn">客戶P/N</label>
-        <input type="text" id="pn" placeholder="例: 1-82-00025-00024H">
-      </div>
-      <div class="form-group">
-        <label for="order">客戶訂單</label>
-        <input type="text" id="order" placeholder="例: 330-20200050175">
-      </div>
-      <div class="form-group">
-        <label for="dateCode">Date Code</label>
-        <input type="text" id="dateCode" placeholder="例: 20200610">
-      </div>
-      <div class="form-group">
-        <label for="lotCode">Lot Code</label>
-        <input type="text" id="lotCode" placeholder="例: ASC11-200500320">
-      </div>
-      <div class="form-group">
-        <label for="qty">QTY</label>
-        <input type="text" id="qty" placeholder="例: 3000">
-      </div>
-      <div class="btn-group">
-        <button class="btn btn-primary" onclick="generatePDF()">產出並下載</button>
-        <button class="btn btn-secondary" onclick="showClearModal()">清除資料</button>
-      </div>
-    </div>
+    <div class="form-panel" id="formPanel"></div>
 
     <!-- Right: Preview -->
     <div class="preview-panel">
       <h2>標籤預覽</h2>
       <div class="preview-area">
-        <div class="label-preview" id="labelPreview">
-          <div class="qr-area">
-            <img id="qrPreview" src="" alt="QR Code">
-          </div>
-          <div class="text-area" id="textPreview">
-            <div class="field-line">客戶P/N: </div>
-            <div class="field-line">客戶訂單: </div>
-            <div class="field-line">Date Code: </div>
-            <div class="field-line">Lot Code: </div>
-            <div class="field-line">QTY: </div>
-          </div>
+        <div class="a4-page" id="a4Page"></div>
+        <div class="page-indicator">
+          <button id="prevPage" onclick="changePage(-1)">&lt;</button>
+          <span id="pageInfo">第 1 頁 / 共 1 頁</span>
+          <button id="nextPage" onclick="changePage(1)">&gt;</button>
         </div>
       </div>
       <div class="preview-note">* 列印 PDF 時請選擇「實際大小」(100%)，以確保 QR code 尺寸為 2cm x 2cm</div>
     </div>
   </div>
 
-  <!-- Clear Confirmation Modal -->
-  <div class="modal-overlay" id="clearModal">
+  <!-- Reset Confirmation Modal -->
+  <div class="modal-overlay" id="resetModal">
     <div class="modal">
-      <h3>確認清除</h3>
-      <p>確定要清除所有已填寫的資料嗎？此操作無法復原。</p>
+      <h3>確認重置</h3>
+      <p>確定要重置所有標籤內容嗎？所有已填寫的資料將被清除，此操作無法復原。</p>
       <div class="btn-group">
-        <button class="btn btn-danger" onclick="confirmClear()">確定清除</button>
-        <button class="btn btn-secondary" onclick="closeClearModal()">取消</button>
+        <button class="btn btn-danger" onclick="confirmReset()">確定重置</button>
+        <button class="btn btn-secondary" onclick="closeResetModal()">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Single Entry Modal -->
+  <div class="modal-overlay" id="clearEntryModal">
+    <div class="modal">
+      <h3>確認清空</h3>
+      <p id="clearEntryMsg">確定要清空此標籤的所有資料嗎？</p>
+      <div class="btn-group">
+        <button class="btn btn-danger" onclick="confirmClearEntry()">確定清空</button>
+        <button class="btn btn-secondary" onclick="closeClearEntryModal()">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Entry Modal -->
+  <div class="modal-overlay" id="deleteEntryModal">
+    <div class="modal">
+      <h3>確認刪除</h3>
+      <p id="deleteEntryMsg">確定要刪除此標籤嗎？</p>
+      <div class="btn-group">
+        <button class="btn btn-danger" onclick="confirmDeleteEntry()">確定刪除</button>
+        <button class="btn btn-secondary" onclick="closeDeleteEntryModal()">取消</button>
       </div>
     </div>
   </div>
 
   <script>
-    // --- DOM references ---
-    const fields = ['pn', 'order', 'dateCode', 'lotCode', 'qty'];
-    const inputs = {};
-    fields.forEach(f => {
-      inputs[f] = document.getElementById(f);
-      inputs[f].addEventListener('input', updatePreview);
-    });
+    // --- Data model ---
+    var labelEntries = [createEmptyEntry()];
+    var currentPage = 0;
+    var pendingClearIdx = -1;
+    var pendingDeleteIdx = -1;
 
-    // --- Preview update ---
-    function getFieldValues() {
-      return {
-        pn: inputs.pn.value,
-        order: inputs.order.value,
-        dateCode: inputs.dateCode.value,
-        lotCode: inputs.lotCode.value,
-        qty: inputs.qty.value
-      };
+    var fieldDefs = [
+      { key: 'pn', label: '客戶P/N', placeholder: '例: 1-82-00025-00024H' },
+      { key: 'order', label: '客戶訂單', placeholder: '例: 330-20200050175' },
+      { key: 'dateCode', label: 'Date Code', placeholder: '例: 20200610' },
+      { key: 'lotCode', label: 'Lot Code', placeholder: '例: ASC11-200500320' },
+      { key: 'qty', label: 'QTY', placeholder: '例: 3000' }
+    ];
+
+    var countOptions = [1,2,3,4,5,6,7,8,9,10,15,20,30,50];
+
+    function createEmptyEntry() {
+      return { pn: '', order: '', dateCode: '', lotCode: '', qty: '', count: 1 };
+    }
+
+    // --- Layout constants (mm) ---
+    var PAGE_W = 210, PAGE_H = 297;
+    var MARGIN_X = 10, MARGIN_Y = 10;
+    var GAP_X = 6, GAP_Y = 4;
+    var LABEL_W_MM = 82, LABEL_H_MM = 30;
+    var COLS = Math.floor((PAGE_W - MARGIN_X * 2 + GAP_X) / (LABEL_W_MM + GAP_X));
+    var ROWS = Math.floor((PAGE_H - MARGIN_Y * 2 + GAP_Y) / (LABEL_H_MM + GAP_Y));
+    var PER_PAGE = COLS * ROWS;
+
+    // --- Render form entries ---
+    function renderForm() {
+      var panel = document.getElementById('formPanel');
+      panel.innerHTML = '';
+
+      labelEntries.forEach(function(entry, idx) {
+        var card = document.createElement('div');
+        card.className = 'label-entry';
+
+        var headerHtml = '<div class="label-entry-header">' +
+          '<h3>標籤資料 ' + (idx + 1) + '</h3>' +
+          '<div class="label-count-inline"><span>列印張數</span>' +
+          '<select onchange="onCountChange(' + idx + ', this.value)">' +
+          countOptions.map(function(n) {
+            return '<option value="' + n + '"' + (entry.count === n ? ' selected' : '') + '>' + n + ' 張</option>';
+          }).join('') +
+          '</select></div></div>';
+
+        var fieldsHtml = fieldDefs.map(function(fd) {
+          return '<div class="form-group">' +
+            '<label>' + fd.label + '</label>' +
+            '<input type="text" value="' + escapeAttr(entry[fd.key]) + '" placeholder="' + fd.placeholder + '" oninput="onFieldInput(' + idx + ',\'' + fd.key + '\',this.value)">' +
+            '</div>';
+        }).join('');
+
+        var isOnly = labelEntries.length <= 1;
+        var actionsHtml = '<div class="entry-actions">' +
+          '<button class="btn-entry-action btn-clear-entry" onclick="showClearEntryModal(' + idx + ')">清空資料</button>' +
+          '<button class="btn-entry-action btn-delete-entry" onclick="showDeleteEntryModal(' + idx + ')"' +
+          (isOnly ? ' disabled' : '') + '>刪除標籤</button>' +
+          '</div>';
+
+        card.innerHTML = headerHtml + fieldsHtml + actionsHtml;
+        panel.appendChild(card);
+      });
+
+      // Add entry button
+      var addBtn = document.createElement('button');
+      addBtn.className = 'btn-add-entry';
+      addBtn.innerHTML = '+ 新增標籤資料';
+      addBtn.onclick = addEntry;
+      panel.appendChild(addBtn);
+    }
+
+    function onFieldInput(idx, key, value) {
+      labelEntries[idx][key] = value;
+      updatePreview();
+    }
+
+    function onCountChange(idx, value) {
+      labelEntries[idx].count = parseInt(value) || 1;
+      updatePreview();
+    }
+
+    function addEntry() {
+      labelEntries.push(createEmptyEntry());
+      renderForm();
+      updatePreview();
+      // Scroll to the new entry
+      var panel = document.getElementById('formPanel');
+      var entries = panel.querySelectorAll('.label-entry');
+      if (entries.length > 0) entries[entries.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // --- Clear single entry ---
+    function showClearEntryModal(idx) {
+      pendingClearIdx = idx;
+      document.getElementById('clearEntryMsg').textContent =
+        '確定要清空「標籤資料 ' + (idx + 1) + '」的所有資料嗎？';
+      document.getElementById('clearEntryModal').classList.add('active');
+    }
+
+    function closeClearEntryModal() {
+      document.getElementById('clearEntryModal').classList.remove('active');
+      pendingClearIdx = -1;
+    }
+
+    function confirmClearEntry() {
+      if (pendingClearIdx >= 0 && pendingClearIdx < labelEntries.length) {
+        labelEntries[pendingClearIdx] = createEmptyEntry();
+        renderForm();
+        updatePreview();
+      }
+      closeClearEntryModal();
+    }
+
+    // --- Delete entry ---
+    function showDeleteEntryModal(idx) {
+      if (labelEntries.length <= 1) return;
+      pendingDeleteIdx = idx;
+      document.getElementById('deleteEntryMsg').textContent =
+        '確定要刪除「標籤資料 ' + (idx + 1) + '」嗎？此操作無法復原。';
+      document.getElementById('deleteEntryModal').classList.add('active');
+    }
+
+    function closeDeleteEntryModal() {
+      document.getElementById('deleteEntryModal').classList.remove('active');
+      pendingDeleteIdx = -1;
+    }
+
+    function confirmDeleteEntry() {
+      if (pendingDeleteIdx >= 0 && pendingDeleteIdx < labelEntries.length && labelEntries.length > 1) {
+        labelEntries.splice(pendingDeleteIdx, 1);
+        currentPage = 0;
+        renderForm();
+        updatePreview();
+      }
+      closeDeleteEntryModal();
+    }
+
+    // --- Build flat list of all labels for preview/PDF ---
+    function buildAllLabels() {
+      var labels = [];
+      labelEntries.forEach(function(entry) {
+        var vals = {
+          pn: entry.pn, order: entry.order,
+          dateCode: entry.dateCode, lotCode: entry.lotCode, qty: entry.qty
+        };
+        for (var i = 0; i < entry.count; i++) labels.push(vals);
+      });
+      return labels;
     }
 
     function buildQRContent(vals) {
@@ -328,139 +621,211 @@
       ].join('\n');
     }
 
-    function updatePreview() {
-      const vals = getFieldValues();
-
-      // Update text
-      const lines = [
+    function buildTextHtml(vals) {
+      return [
         '客戶P/N: ' + vals.pn,
         '客戶訂單: ' + vals.order,
         'Date Code: ' + vals.dateCode,
         'Lot Code: ' + vals.lotCode,
         'QTY: ' + vals.qty
-      ];
-      document.getElementById('textPreview').innerHTML =
-        lines.map(l => '<div class="field-line">' + escapeHtml(l) + '</div>').join('');
+      ].map(function(l) { return '<div>' + escapeHtml(l) + '</div>'; }).join('');
+    }
 
-      // Update QR code
-      const content = buildQRContent(vals);
+    function getQRDataUrl(vals) {
       try {
         var qr = qrcode(0, 'M');
-        qr.addData(content);
+        qr.addData(buildQRContent(vals));
         qr.make();
-        document.getElementById('qrPreview').src = qr.createDataURL(4, 0);
-      } catch (e) {
-        // QR generation may fail if content is empty or too long
+        return qr.createDataURL(4, 0);
+      } catch (e) { return ''; }
+    }
+
+    // --- Preview ---
+    function updatePreview() {
+      var allLabels = buildAllLabels();
+      var totalLabels = allLabels.length;
+      var totalPages = Math.max(1, Math.ceil(totalLabels / PER_PAGE));
+      if (currentPage >= totalPages) currentPage = totalPages - 1;
+
+      var a4 = document.getElementById('a4Page');
+      a4.innerHTML = '';
+
+      var startIdx = currentPage * PER_PAGE;
+      var endIdx = Math.min(startIdx + PER_PAGE, totalLabels);
+
+      // Cache QR images per unique content
+      var qrCache = {};
+
+      for (var i = startIdx; i < endIdx; i++) {
+        var vals = allLabels[i];
+        var contentKey = buildQRContent(vals);
+        if (!qrCache[contentKey]) qrCache[contentKey] = getQRDataUrl(vals);
+
+        var idx = i % PER_PAGE;
+        var col = idx % COLS;
+        var row = Math.floor(idx / COLS);
+
+        var x = MARGIN_X + col * (LABEL_W_MM + GAP_X);
+        var y = MARGIN_Y + row * (LABEL_H_MM + GAP_Y);
+
+        var leftPct = (x / PAGE_W * 100).toFixed(2);
+        var topPct = (y / PAGE_H * 100).toFixed(2);
+        var wPct = (LABEL_W_MM / PAGE_W * 100).toFixed(2);
+        var hPct = (LABEL_H_MM / PAGE_H * 100).toFixed(2);
+
+        var label = document.createElement('div');
+        label.className = 'a4-label';
+        label.style.cssText = 'left:' + leftPct + '%;top:' + topPct + '%;width:' + wPct + '%;height:' + hPct + '%';
+        label.innerHTML =
+          '<div class="qr-area"><img src="' + qrCache[contentKey] + '" alt="QR"></div>' +
+          '<div class="text-area">' + buildTextHtml(vals) + '</div>';
+        a4.appendChild(label);
+      }
+
+      document.getElementById('pageInfo').textContent = '第 ' + (currentPage + 1) + ' 頁 / 共 ' + totalPages + ' 頁';
+      document.getElementById('prevPage').disabled = currentPage <= 0;
+      document.getElementById('nextPage').disabled = currentPage >= totalPages - 1;
+    }
+
+    function changePage(delta) {
+      var allLabels = buildAllLabels();
+      var totalPages = Math.max(1, Math.ceil(allLabels.length / PER_PAGE));
+      currentPage = Math.max(0, Math.min(totalPages - 1, currentPage + delta));
+      updatePreview();
+    }
+
+    // --- PDF generation ---
+    function generatePDF() {
+      var allLabels = buildAllLabels();
+      if (allLabels.length === 0) return;
+
+      var DPI = 300;
+      var mmToPx = function(mm) { return Math.round((mm / 25.4) * DPI); };
+      var QR_SIZE_MM = 20, PADDING_MM = 3;
+      var TEXT_X_MM = QR_SIZE_MM + PADDING_MM * 2 + 1;
+      var canvasW = mmToPx(LABEL_W_MM);
+      var canvasH = mmToPx(LABEL_H_MM);
+
+      // Pre-render each unique label to canvas image
+      var imgCache = {};
+      var pending = 0;
+      var uniqueKeys = [];
+
+      allLabels.forEach(function(vals) {
+        var key = buildQRContent(vals);
+        if (!imgCache[key]) {
+          imgCache[key] = null; // placeholder
+          uniqueKeys.push({ key: key, vals: vals });
+        }
+      });
+
+      var remaining = uniqueKeys.length;
+
+      uniqueKeys.forEach(function(item) {
+        var canvas = document.createElement('canvas');
+        canvas.width = canvasW;
+        canvas.height = canvasH;
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvasW, canvasH);
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(1, 1, canvasW - 2, canvasH - 2);
+
+        var qr = qrcode(0, 'M');
+        qr.addData(item.key);
+        qr.make();
+
+        var qrImg = new Image();
+        qrImg.onload = function() {
+          var qrPx = mmToPx(QR_SIZE_MM);
+          ctx.drawImage(qrImg, mmToPx(PADDING_MM), Math.round((canvasH - qrPx) / 2), qrPx, qrPx);
+
+          var fontSize = mmToPx(2.8);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold ' + fontSize + 'px "Courier New", monospace';
+
+          var textX = mmToPx(TEXT_X_MM);
+          var lineH = mmToPx(4.5);
+          var textY = mmToPx(5.5);
+
+          [
+            '客戶P/N: ' + item.vals.pn,
+            '客戶訂單: ' + item.vals.order,
+            'Date Code: ' + item.vals.dateCode,
+            'Lot Code: ' + item.vals.lotCode,
+            'QTY: ' + item.vals.qty
+          ].forEach(function(line) {
+            ctx.fillText(line, textX, textY);
+            textY += lineH;
+          });
+
+          imgCache[item.key] = canvas.toDataURL('image/png');
+          remaining--;
+
+          if (remaining === 0) finalizePDF();
+        };
+        qrImg.src = qr.createDataURL(10, 0);
+      });
+
+      function finalizePDF() {
+        var jsPDF = window.jspdf.jsPDF;
+        var doc = new jsPDF('p', 'mm', 'a4');
+        var cols = COLS, rows = ROWS, perPage = PER_PAGE;
+
+        allLabels.forEach(function(vals, i) {
+          if (i > 0 && i % perPage === 0) doc.addPage();
+          var idx = i % perPage;
+          var col = idx % cols;
+          var row = Math.floor(idx / cols);
+          var x = MARGIN_X + col * (LABEL_W_MM + GAP_X);
+          var y = MARGIN_Y + row * (LABEL_H_MM + GAP_Y);
+          var key = buildQRContent(vals);
+          doc.addImage(imgCache[key], 'PNG', x, y, LABEL_W_MM, LABEL_H_MM);
+        });
+
+        doc.save('label.pdf');
       }
     }
 
+    // --- Utilities ---
     function escapeHtml(str) {
-      const div = document.createElement('div');
+      var div = document.createElement('div');
       div.textContent = str;
       return div.innerHTML;
     }
 
-    // --- PDF generation using Canvas-to-Image ---
-    function generatePDF() {
-      const vals = getFieldValues();
-      const content = buildQRContent(vals);
-
-      // Constants
-      const DPI = 300;
-      const mmToPx = (mm) => Math.round((mm / 25.4) * DPI);
-
-      const LABEL_W_MM = 82;
-      const LABEL_H_MM = 30;
-      const QR_SIZE_MM = 20;
-      const PADDING_MM = 3;
-      const TEXT_X_MM = QR_SIZE_MM + PADDING_MM * 2 + 1;
-
-      const canvasW = mmToPx(LABEL_W_MM);
-      const canvasH = mmToPx(LABEL_H_MM);
-
-      const canvas = document.createElement('canvas');
-      canvas.width = canvasW;
-      canvas.height = canvasH;
-      const ctx = canvas.getContext('2d');
-
-      // White background
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvasW, canvasH);
-
-      // Border
-      ctx.strokeStyle = '#000000';
-      ctx.lineWidth = 3;
-      ctx.strokeRect(1, 1, canvasW - 2, canvasH - 2);
-
-      // Generate QR code at high resolution
-      var qr = qrcode(0, 'M');
-      qr.addData(content);
-      qr.make();
-
-      var qrImg = new Image();
-      qrImg.onload = function () {
-        // Draw QR code
-        var qrPx = mmToPx(QR_SIZE_MM);
-        var qrX = mmToPx(PADDING_MM);
-        var qrY = Math.round((canvasH - qrPx) / 2);
-        ctx.drawImage(qrImg, qrX, qrY, qrPx, qrPx);
-
-        // Draw text lines
-        var fontSize = mmToPx(2.8);
-        ctx.fillStyle = '#000000';
-        ctx.font = 'bold ' + fontSize + 'px "Courier New", monospace';
-
-        var textX = mmToPx(TEXT_X_MM);
-        var lineHeight = mmToPx(4.5);
-        var textY = mmToPx(5.5);
-
-        var textLines = [
-          '客戶P/N: ' + vals.pn,
-          '客戶訂單: ' + vals.order,
-          'Date Code: ' + vals.dateCode,
-          'Lot Code: ' + vals.lotCode,
-          'QTY: ' + vals.qty
-        ];
-
-        textLines.forEach(function (line) {
-          ctx.fillText(line, textX, textY);
-          textY += lineHeight;
-        });
-
-        // Generate PDF
-        var { jsPDF } = window.jspdf;
-        var doc = new jsPDF('p', 'mm', 'a4');
-        var imgData = canvas.toDataURL('image/png');
-
-        // Place label at top-left with margin
-        doc.addImage(imgData, 'PNG', 10, 10, LABEL_W_MM, LABEL_H_MM);
-        doc.save('label.pdf');
-      };
-
-      qrImg.src = qr.createDataURL(10, 0);
+    function escapeAttr(str) {
+      return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    // --- Clear form with modal ---
-    function showClearModal() {
-      document.getElementById('clearModal').classList.add('active');
+    // --- Reset ---
+    function showResetModal() {
+      document.getElementById('resetModal').classList.add('active');
     }
 
-    function closeClearModal() {
-      document.getElementById('clearModal').classList.remove('active');
+    function closeResetModal() {
+      document.getElementById('resetModal').classList.remove('active');
     }
 
-    function confirmClear() {
-      fields.forEach(f => inputs[f].value = '');
-      closeClearModal();
+    function confirmReset() {
+      labelEntries = [createEmptyEntry()];
+      currentPage = 0;
+      closeResetModal();
+      renderForm();
       updatePreview();
     }
 
-    // Close modal on overlay click
-    document.getElementById('clearModal').addEventListener('click', function (e) {
-      if (e.target === this) closeClearModal();
+    // Close modals on overlay click
+    ['resetModal', 'clearEntryModal', 'deleteEntryModal'].forEach(function(id) {
+      document.getElementById(id).addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('active');
+      });
     });
 
-    // Initial preview
+    // --- Init ---
+    renderForm();
     updatePreview();
   </script>
 </body>
