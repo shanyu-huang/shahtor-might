@@ -612,13 +612,7 @@
     }
 
     function buildQRContent(vals) {
-      return [
-        '客戶P/N: ' + vals.pn,
-        '客戶訂單: ' + vals.order,
-        'Date Code: ' + vals.dateCode,
-        'Lot Code: ' + vals.lotCode,
-        'QTY: ' + vals.qty
-      ].join('\n');
+      return [vals.pn, vals.dateCode, vals.lotCode, vals.qty].join(',');
     }
 
     function buildTextHtml(vals) {
